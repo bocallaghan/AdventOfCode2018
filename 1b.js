@@ -21,7 +21,9 @@
         solveFrequencyVariation = function (puzzleInput) {
 
             var overallResult = 0,
+                // Logs all the previous overallResults found.
                 previousAnswers = [0],
+                // Indicates whether we have come across a duplicate frequency yet.
                 duplicateFrequencyFound = false,
                 // First we remove all spaces from the string
                 cleanedPuzzleInput = puzzleInput.replace(/ /g, ""),
@@ -29,8 +31,10 @@
                 frequencyChanges = cleanedPuzzleInput.split(","),
                 i;
 
-            // While a duplicate frequency is not found
+            // While a duplicate frequency is not found we continue looping around the instructions.
             while (!duplicateFrequencyFound){
+
+                // For each frequency change we process it and apply
                 for (i = 0; i < frequencyChanges.length; i = i + 1){
                     var incrementalValue = parseInt(frequencyChanges[i].substr(1));
     
@@ -39,14 +43,19 @@
                     } else {
                         overallResult = overallResult - incrementalValue;
                     }
+
+                    // If we have seen this "overallResult" before it is a duplicate
+                    // so we break out and allow the program to end.
                     if (previousAnswers.includes(overallResult)){
                         duplicateFrequencyFound = true;
                         break;
                     } else {
+                        // Otherwise we add it to the list of seen "OverallResults"
                         previousAnswers.push(overallResult)
                     }
                 }
             }
+            // At the end we return the result.
             return overallResult;
         };
 
